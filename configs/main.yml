@@ -1,0 +1,23 @@
+http:
+  port: 8000
+  maxHeaderBytes: 1
+  readTimeout: 10s
+  writeTimeout: 10s
+
+cache:
+  ttl: 60s
+
+auth:
+  accessTokenTTL: 20m
+  refreshTokenTTL: 720h
+
+smtp:
+  host: "smtp.gmail.com"
+  port: 587
+  from: "avalonsendler@gmail.com"
+
+email:
+  templates:
+    verification: "./templates/verification_email.html"
+  subjects:
+    verification: "Спасибо за регистрацию, %s!"
