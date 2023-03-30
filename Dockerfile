@@ -1,4 +1,4 @@
- 16 lines (9 sloc) 154 Bytes
+
 FROM golang:1.19
 
 EXPOSE 8000
