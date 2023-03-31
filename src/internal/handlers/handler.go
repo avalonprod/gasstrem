@@ -37,6 +37,7 @@ func (h *Handlers) Init(cfg *config.Config) *gin.Engine {
 			invoces := authenticated.Group("/invoces")
 			{
 				invoces.POST("/create", h.CreateInvoice)
+				invoces.GET("/get-all", h.GetAllInvoceByUserId)
 			}
 		}
 

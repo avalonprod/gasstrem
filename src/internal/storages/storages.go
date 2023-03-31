@@ -18,6 +18,7 @@ type Users interface {
 
 type Invoices interface {
 	Create(ctx context.Context, invoce models.Invoice) error
+	GetAllInvoceByUserId(ctx context.Context, userID primitive.ObjectID) ([]models.Invoice, error)
 }
 
 type Storages struct {

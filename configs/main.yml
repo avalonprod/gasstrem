@@ -8,7 +8,7 @@ cache:
   ttl: 60s
 
 auth:
-  accessTokenTTL: 20m
+  accessTokenTTL: 2h
   refreshTokenTTL: 720h
 
 smtp:

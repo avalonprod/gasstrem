@@ -6,7 +6,7 @@ import (
 
 type Invoice struct {
 	ID          primitive.ObjectID `json:"id" bson:"_id,omitempty"`
-	UserID      string             `json:"userID" bson:"userID"`
+	UserID      primitive.ObjectID `json:"userID" bson:"userID"`
 	InvTitle    string             `json:"invTitle" bson:"invTitle"`
 	InvNum      int                `json:"invNum" bson:"invNum"`
 	CreatedTime string             `json:"createdTime" bson:"createdTime"`

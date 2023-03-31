@@ -6,22 +6,23 @@ import (
 	"github.com/avalonprod/gasstrem/src/internal/models"
 	"github.com/avalonprod/gasstrem/src/internal/services"
 	"github.com/gin-gonic/gin"
+	"go.mongodb.org/mongo-driver/bson/primitive"
 )
 
 type InvoiceInput struct {
-	UserID      string           `json:"userID" bson:"userID"`
-	InvTitle    string           `json:"invTitle" bson:"invTitle"`
-	InvNum      int              `json:"invNum" bson:"invNum"`
-	CreatedTime string           `json:"createdTime" bson:"createdTime"`
-	Balance     float64          `json:"balance" bson:"balance"`
-	Notes       string           `json:"notes" bson:"notes"`
-	Dispatch    bool             `json:"dispatch" bson:"dispatch"`
-	Discount    bool             `json:"discount" bson:"discount"`
-	ColorLine   string           `json:"colorLine" bson:"colorLine"`
-	Currency    string           `json:"currency" bson:"currency"`
-	From        from             `json:"from" bson:"from"`
-	To          to               `json:"to" bson:"to"`
-	InvList     []models.InvItem `json:"invList" bson:"invList"`
+	UserID      primitive.ObjectID `json:"userID" bson:"userID"`
+	InvTitle    string             `json:"invTitle" bson:"invTitle"`
+	InvNum      int                `json:"invNum" bson:"invNum"`
+	CreatedTime string             `json:"createdTime" bson:"createdTime"`
+	Balance     float64            `json:"balance" bson:"balance"`
+	Notes       string             `json:"notes" bson:"notes"`
+	Dispatch    bool               `json:"dispatch" bson:"dispatch"`
+	Discount    bool               `json:"discount" bson:"discount"`
+	ColorLine   string             `json:"colorLine" bson:"colorLine"`
+	Currency    string             `json:"currency" bson:"currency"`
+	From        from               `json:"from" bson:"from"`
+	To          to                 `json:"to" bson:"to"`
+	InvList     []models.InvItem   `json:"invList" bson:"invList"`
 }
 
 type from struct {
@@ -81,7 +82,7 @@ func (h *Handlers) CreateInvoice(c *gin.Context) {
 	}
 
 	err = h.services.Invoices.CreateInvoice(c.Request.Context(), services.InvoiceInput{
-		UserID:      id.String(),
+		UserID:      id,
 		InvTitle:    input.InvTitle,
 		InvNum:      input.InvNum,
 		CreatedTime: input.CreatedTime,
@@ -100,4 +101,19 @@ func (h *Handlers) CreateInvoice(c *gin.Context) {
 		newResponse(c, http.StatusBadRequest, err.Error())
 	}
 	c.Status(http.StatusCreated)
+}
+
+func (h *Handlers) GetAllInvoceByUserId(c *gin.Context) {
+	id, err := getUserId(c)
+	if err != nil {
+		newResponse(c, http.StatusBadRequest, err.Error())
+		return
+	}
+	res, err := h.services.Invoices.GetAllInvoceByUserId(c.Request.Context(), id)
+	if err != nil {
+		newResponse(c, http.StatusBadRequest, err.Error())
+		return
+	}
+
+	c.JSON(http.StatusOK, res)
 }

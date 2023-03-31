@@ -5,6 +5,7 @@ import (
 
 	"github.com/avalonprod/gasstrem/src/internal/models"
 	"github.com/avalonprod/gasstrem/src/internal/storages"
+	"go.mongodb.org/mongo-driver/bson/primitive"
 )
 
 type InvoicesService struct {
@@ -18,19 +19,19 @@ func NewInvoicesService(storages storages.Invoices) *InvoicesService {
 }
 
 type InvoiceInput struct {
-	UserID      string           `json:"userID" bson:"userID"`
-	InvTitle    string           `json:"invTitle" bson:"invTitle"`
-	InvNum      int              `json:"invNum" bson:"invNum"`
-	CreatedTime string           `json:"createdTime" bson:"createdTime"`
-	Balance     float64          `json:"balance" bson:"balance"`
-	Notes       string           `json:"notes" bson:"notes"`
-	Dispatch    bool             `json:"dispatch" bson:"dispatch"`
-	Discount    bool             `json:"discount" bson:"discount"`
-	ColorLine   string           `json:"colorLine" bson:"colorLine"`
-	Currency    string           `json:"currency" bson:"currency"`
-	From        From             `json:"from" bson:"from"`
-	To          To               `json:"to" bson:"to"`
-	InvList     []models.InvItem `json:"invList" bson:"invList"`
+	UserID      primitive.ObjectID `json:"userID" bson:"userID"`
+	InvTitle    string             `json:"invTitle" bson:"invTitle"`
+	InvNum      int                `json:"invNum" bson:"invNum"`
+	CreatedTime string             `json:"createdTime" bson:"createdTime"`
+	Balance     float64            `json:"balance" bson:"balance"`
+	Notes       string             `json:"notes" bson:"notes"`
+	Dispatch    bool               `json:"dispatch" bson:"dispatch"`
+	Discount    bool               `json:"discount" bson:"discount"`
+	ColorLine   string             `json:"colorLine" bson:"colorLine"`
+	Currency    string             `json:"currency" bson:"currency"`
+	From        From               `json:"from" bson:"from"`
+	To          To                 `json:"to" bson:"to"`
+	InvList     []models.InvItem   `json:"invList" bson:"invList"`
 }
 
 type From struct {
@@ -94,4 +95,14 @@ func (i *InvoicesService) CreateInvoice(ctx context.Context, input InvoiceInput)
 		InvList:     input.InvList,
 	})
 	return err
+}
+
+func (i *InvoicesService) GetAllInvoceByUserId(ctx context.Context, userID primitive.ObjectID) ([]models.Invoice, error) {
+	res, err := i.storages.GetAllInvoceByUserId(ctx, userID)
+
+	if err != nil {
+		return []models.Invoice{}, err
+	}
+
+	return res, nil
 }

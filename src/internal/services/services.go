@@ -5,10 +5,12 @@ import (
 	"time"
 
 	"github.com/avalonprod/gasstrem/src/internal/config"
+	"github.com/avalonprod/gasstrem/src/internal/models"
 	"github.com/avalonprod/gasstrem/src/internal/storages"
 	"github.com/avalonprod/gasstrem/src/packages/auth"
 	"github.com/avalonprod/gasstrem/src/packages/email"
 	"github.com/avalonprod/gasstrem/src/packages/hash"
+	"go.mongodb.org/mongo-driver/bson/primitive"
 )
 
 type Users interface {
@@ -19,6 +21,7 @@ type Users interface {
 
 type Invoices interface {
 	CreateInvoice(ctx context.Context, input InvoiceInput) error
+	GetAllInvoceByUserId(ctx context.Context, userID primitive.ObjectID) ([]models.Invoice, error)
 }
 
 type Emails interface {
