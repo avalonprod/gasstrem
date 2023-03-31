@@ -61,9 +61,9 @@ func getIdByContext(c *gin.Context, context string) (primitive.ObjectID, error) 
 }
 
 func (h *Handlers) CorsMiddleware(c *gin.Context) {
-	c.Header("Access-Control-Allow-Origin", "*")
-	c.Header("Access-Control-Allow-Methods", "*")
-	c.Header("Access-Control-Allow-Headers", "*")
+	c.Header("Access-Control-Allow-Origin", "5.27.30.6")
+	c.Header("Access-Control-Allow-Methods", "GET, POST, PUT, DELETE")
+	c.Header("Access-Control-Allow-Headers", "Content-Type, Authorization")
 	c.Header("Content-Type", "application/json")
 
 	if c.Request.Method != "OPTIONS" {
