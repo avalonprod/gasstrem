@@ -1,4 +1,8 @@
+<<<<<<< HEAD
  16 lines (9 sloc) 154 Bytes
+=======
+
+>>>>>>> b404a0a4a1811673fccf05e674e18c1bf4afc12c
 FROM golang:1.19
 
 EXPOSE 8000
@@ -14,4 +18,8 @@ COPY . .
 
 RUN go build src/cmd/app/main.go 
 
+<<<<<<< HEAD
 CMD ["./main"]
+=======
+CMD ["./main"]
+>>>>>>> b404a0a4a1811673fccf05e674e18c1bf4afc12c
