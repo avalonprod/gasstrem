@@ -6,6 +6,7 @@ import (
 	"github.com/avalonprod/gasstrem/src/internal/config"
 	"github.com/avalonprod/gasstrem/src/internal/services"
 	"github.com/avalonprod/gasstrem/src/packages/auth"
+	"github.com/gin-contrib/cors"
 	"github.com/gin-gonic/gin"
 )
 
@@ -27,7 +28,8 @@ func (h *Handlers) Init(cfg *config.Config) *gin.Engine {
 	r.Use(
 		gin.Recovery(),
 		gin.Logger(),
-		h.CorsMiddleware,
+		// h.CorsMiddleware,
+		cors.Default(),
 	)
 
 	api := r.Group("/api")

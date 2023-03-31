@@ -94,6 +94,7 @@ func (i *InvoicesService) CreateInvoice(ctx context.Context, input InvoiceInput)
 		To:          to,
 		InvList:     input.InvList,
 	})
+
 	return err
 }
 
@@ -105,4 +106,8 @@ func (i *InvoicesService) GetAllInvoceByUserId(ctx context.Context, userID primi
 	}
 
 	return res, nil
+}
+
+func GenerateInvoceTemplate() {
+
 }
